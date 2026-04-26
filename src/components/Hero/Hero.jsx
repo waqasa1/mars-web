@@ -28,11 +28,11 @@ export default function Hero() {
 
         <div className="mars-visual">
           <div className="mars-planet-container">
-            <Image 
-              src="/assets/mars.png" 
-              alt="Mars Planet" 
-              width={600} 
-              height={600} 
+            <Image
+              src="/assets/mars2.png"
+              alt="Mars Planet"
+              width={600}
+              height={600}
               priority
               loading="eager"
               fetchPriority="high"
