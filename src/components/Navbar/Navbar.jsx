@@ -36,13 +36,14 @@ export default function Navbar() {
         </Link>
 
         <div className="nav-links">
-          <Link href="#services" className="nav-link">Services</Link>
-          <Link href="#portfolio" className="nav-link">Portfolio</Link>
-          <Link href="#about" className="nav-link">About</Link>
-          <Link href="#contact" className="nav-link">Contact</Link>
+          <Link href="/" className="nav-link">Home</Link>
+          <Link href="/services" className="nav-link">Services</Link>
+          <Link href="/projects" className="nav-link">Portfolio</Link>
+          <Link href="/about" className="nav-link">About</Link>
+          <Link href="/contact" className="nav-link">Contact</Link>
         </div>
 
-        <Link href="#contact" className="cta-button">
+        <Link href="/contact" className="cta-button">
           Get Started <span>→</span>
         </Link>
       </div>

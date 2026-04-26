@@ -3,7 +3,49 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const projects = [
+export const projects = [
+  {
+    title: 'Space Dental',
+    category: 'Web Development · Next.js',
+    desc: 'A premium dental clinic website with a modern and elegant design.',
+    image: '/assets/spacedental.png',
+    link: 'https://spacedental.co.uk/'
+  },
+  {
+    title: 'Psychedelic Soul Sound',
+    category: 'Web Development · React',
+    desc: 'An immersive audio and wellness platform with vibrant aesthetics.',
+    image: '/assets/soulsound.png',
+    link: 'https://psychedelicsoulsound.com/'
+  },
+  {
+    title: 'Niyokclean',
+    category: 'Web Development · Business',
+    desc: 'A professional cleaning service website with a modern and clean design.',
+    image: '/assets/niyokclean.png',
+    link: 'https://niyokclean.com/'
+  },
+  {
+    title: 'Movsentry',
+    category: 'Web App · Next.js',
+    desc: 'A comprehensive security and monitoring solution interface.',
+    image: '/assets/movsentry.png',
+    link: 'https://movsentry.com/'
+  },
+  {
+    title: 'Elena Hills',
+    category: 'Web Development · CMS',
+    desc: 'A luxurious real estate portfolio showcasing exclusive properties.',
+    image: '/assets/elenahills.png',
+    link: 'https://www.elenahills.com/'
+  },
+  {
+    title: 'Gutbeck',
+    category: 'E-Commerce · Web Development',
+    desc: 'A sophisticated e-commerce platform with a seamless shopping experience.',
+    image: '/assets/gutbeck.png',
+    link: 'https://gutbeck.com/'
+  },
   {
     title: 'Accend Fitness',
     category: 'Web Development · React',
@@ -27,16 +69,23 @@ const projects = [
   }
 ]
 
-export default function Portfolio() {
+export default function Portfolio({ showAll = false }) {
+  const displayedProjects = showAll ? projects : projects.slice(0, 2)
+
   return (
     <section id="portfolio" className="section-padding">
       <div className="container">
         <div className="portfolio-header">
-          <h2 className="section-title">Our Work</h2>
+          <h2 className="section-title">{showAll ? 'All Projects' : 'Our Work'}</h2>
+          {!showAll && (
+            <Link href="/projects" className="view-all">
+              View All Projects <span>→</span>
+            </Link>
+          )}
         </div>
 
         <div className="portfolio-grid">
-          {projects.map((p, i) => (
+          {displayedProjects.map((p, i) => (
             <div key={i} className="portfolio-card">
               <div className="image-wrapper">
                 <Image 
@@ -82,6 +131,13 @@ export default function Portfolio() {
           align-items: center;
           gap: 8px;
           margin-bottom: 10px;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+        }
+
+        .view-all:hover {
+          color: var(--mars-glow);
         }
 
         .portfolio-grid {
