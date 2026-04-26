@@ -27,22 +27,24 @@ export default function Hero() {
         </div>
 
         <div className="mars-visual">
-          <div className="mars-planet-container">
-            <Image
-              src="/assets/mars2.png"
-              alt="Mars Planet"
-              width={600}
-              height={600}
-              priority
-              loading="eager"
-              fetchPriority="high"
-              className="mars-planet-img"
-            />
-            <div className="mars-glow"></div>
+          <div className="mars-wrapper">
+            <div className="mars-atmosphere"></div>
+            <div className="mars-planet-container">
+              <Image
+                src="/assets/mars2.png"
+                alt="Mars Planet"
+                width={600}
+                height={600}
+                priority
+                loading="eager"
+                fetchPriority="high"
+                className="mars-planet-img"
+              />
+            </div>
+            <div className="mars-ring"></div>
           </div>
         </div>
       </div>
-
 
       <style jsx>{`
         .hero {
@@ -146,45 +148,129 @@ export default function Hero() {
           transform: translateY(-3px);
         }
 
+        /* ── Mars Visual ── */
+
         .mars-visual {
           grid-column: span 5;
           display: flex;
           justify-content: center;
+          align-items: center;
           position: relative;
         }
 
-        .mars-planet-container {
+        .mars-wrapper {
           position: relative;
           width: 100%;
-          max-width: 500px;
+          max-width: 520px;
           aspect-ratio: 1;
           display: flex;
           align-items: center;
           justify-content: center;
+          animation: marsFloat 7s ease-in-out infinite alternate;
+        }
+
+        /* Outer deep glow — large, very soft */
+        .mars-atmosphere {
+          position: absolute;
+          inset: -25%;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 68, 26, 0.18) 0%,
+            rgba(139, 42, 16, 0.08) 35%,
+            transparent 65%
+          );
+          animation: atmospherePulse 4s ease-in-out infinite alternate;
+          pointer-events: none;
+        }
+
+        /* Tight inner glow ring right behind the planet */
+        .mars-ring {
+          position: absolute;
+          inset: 5%;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 68, 26, 0.12) 0%,
+            rgba(255, 107, 53, 0.06) 50%,
+            transparent 70%
+          );
+          filter: blur(20px);
+          animation: atmospherePulse 4s ease-in-out infinite alternate-reverse;
+          pointer-events: none;
+        }
+
+        .mars-planet-container {
+          position: relative;
+          width: 88%;
+          aspect-ratio: 1;
+          z-index: 1;
         }
 
         .mars-planet-img {
           width: 100% !important;
           height: auto !important;
           object-fit: contain;
-          filter: drop-shadow(0 0 50px rgba(232, 68, 26, 0.2));
-          animation: float 8s ease-in-out infinite;
+          border-radius: 50%;
+          /* Terminator shadow — simulates sunlight from upper-left */
+          filter:
+            drop-shadow(0 0 40px rgba(232, 68, 26, 0.35))
+            drop-shadow(0 0 80px rgba(232, 68, 26, 0.15))
+            drop-shadow(0 0 120px rgba(232, 68, 26, 0.08));
+          animation: marsSpin 90s linear infinite;
         }
 
-        .mars-glow {
+        /* Terminator overlay — dark shadow on the right side of the planet */
+        .mars-planet-container::after {
+          content: '';
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at center, var(--mars) 0%, transparent 70%);
-          opacity: 0.15;
-          filter: blur(60px);
+          border-radius: 50%;
+          background: radial-gradient(
+            ellipse at 72% 50%,
+            rgba(3, 5, 15, 0.55) 0%,
+            rgba(3, 5, 15, 0.2) 40%,
+            transparent 65%
+          );
           pointer-events: none;
-          z-index: -1;
+          z-index: 2;
         }
 
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(2deg); }
+        /* Specular highlight — sun glint upper-left */
+        .mars-planet-container::before {
+          content: '';
+          position: absolute;
+          top: 8%;
+          left: 10%;
+          width: 28%;
+          height: 20%;
+          border-radius: 50%;
+          background: radial-gradient(
+            ellipse,
+            rgba(255, 220, 180, 0.12) 0%,
+            transparent 70%
+          );
+          pointer-events: none;
+          z-index: 3;
+          filter: blur(8px);
         }
+
+        @keyframes marsFloat {
+          from { transform: translateY(0px) rotate(0deg); }
+          to   { transform: translateY(-28px) rotate(0.8deg); }
+        }
+
+        @keyframes marsSpin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+
+        @keyframes atmospherePulse {
+          from { opacity: 0.6; transform: scale(0.97); }
+          to   { opacity: 1;   transform: scale(1.03); }
+        }
+
+        /* ── Responsive ── */
 
         @media (max-width: 1200px) {
           .hero-inner { gap: 20px; }
@@ -198,7 +284,7 @@ export default function Hero() {
           .subheading { margin-left: auto; margin-right: auto; }
           .cta-group { justify-content: center; }
           .mars-visual { grid-column: 1; margin-top: 2rem; order: -1; }
-          .mars-planet-container { max-width: 300px; }
+          .mars-wrapper { max-width: 320px; }
           h1 { font-size: clamp(2.2rem, 8vw, 3.8rem); }
         }
 
@@ -207,6 +293,14 @@ export default function Hero() {
           .cta-group { flex-direction: column; width: 100%; max-width: 300px; }
           .btn { width: 100%; text-align: center; }
           .eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; }
+          .mars-wrapper { max-width: 260px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .mars-wrapper { animation: none; }
+          .mars-planet-img { animation: none; }
+          .mars-atmosphere { animation: none; }
+          .mars-ring { animation: none; }
         }
       `}</style>
     </section>
