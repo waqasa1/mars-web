@@ -26,6 +26,8 @@ export default function Navbar() {
                   width={24} 
                   height={24} 
                   priority
+                  loading="eager"
+                  fetchPriority="high"
                   className="logo-img"
                 />
               </div>

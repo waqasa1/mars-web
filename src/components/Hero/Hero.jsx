@@ -34,6 +34,8 @@ export default function Hero() {
               width={600} 
               height={600} 
               priority
+              loading="eager"
+              fetchPriority="high"
               className="mars-planet-img"
             />
             <div className="mars-glow"></div>
