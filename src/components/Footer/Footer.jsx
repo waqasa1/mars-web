@@ -11,11 +11,11 @@ export default function Footer() {
           <div className="footer-brand">
             <Link href="/" className="logo">
               <div className="logo-img-wrapper">
-                <Image 
-                  src="/assets/mars.png" 
-                  alt="Mars Web Logo" 
-                  width={24} 
-                  height={24} 
+                <Image
+                  src="/assets/mars.png"
+                  alt="Mars Web Logo"
+                  width={24}
+                  height={24}
                   className="logo-img"
                 />
               </div>
@@ -31,11 +31,11 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="col-title">Services</h4>
             <ul className="footer-links">
-              <li><Link href="#services">Web Development</Link></li>
-              <li><Link href="#services">Mobile Development</Link></li>
-              <li><Link href="#services">SEO Optimization</Link></li>
-              <li><Link href="#services">Digital Marketing</Link></li>
-              <li><Link href="#services">Shopify Development</Link></li>
+              <li>Web Development</li>
+              <li>Mobile Development</li>
+              <li>SEO Optimization</li>
+              <li>Digital Marketing</li>
+              <li>Shopify Development</li>
             </ul>
           </div>
 
@@ -43,9 +43,10 @@ export default function Footer() {
             <h4 className="col-title">Company</h4>
             <ul className="footer-links">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="#portfolio">Portfolio</Link></li>
-              <li><Link href="#about">About Us</Link></li>
-              <li><Link href="#contact">Contact</Link></li>
+              <li><Link href="/services">Services</Link></li>
+              <li><Link href="/projects">Portfolio</Link></li>
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
 
