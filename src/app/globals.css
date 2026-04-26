@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --mars: #E8441A;
+  --mars-glow: #FF6B35;
+  --mars-dim: #7A2410;
+  --space-void: #03050F;
+  --space-deep: #080D1E;
+  --space-surface: #0D1228;
+  --space-elevated: #131A30;
+  --star-white: #E8E9F3;
+  --star-dim: #8B8FA8;
+  --star-faint: #4A4E63;
+  --nebula-blue: #1E3A8A;
+  --nebula-purple: #4C1D95;
+  --cyan: #22D3EE;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(232, 68, 26, 0.3);
+
+  /* Spacing */
+  --xs: 4px;
+  --sm: 8px;
+  --md: 16px;
+  --lg: 24px;
+  --xl: 40px;
+  --2xl: 64px;
+  --3xl: 96px;
+  --4xl: 160px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Fonts */
+  --font-display: var(--font-outfit);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-mars: var(--mars);
+  --color-mars-glow: var(--mars-glow);
+  --color-space-void: var(--space-void);
+  --color-space-deep: var(--space-deep);
+  --color-space-surface: var(--space-surface);
+  --color-star-white: var(--star-white);
+  --color-star-dim: var(--star-dim);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--space-void);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--space-void);
+  color: var(--star-white);
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--space-elevated);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mars-dim);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+
+.section-padding {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+}
+
+/* Star Field Background Animation */
+.stars-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
 }
