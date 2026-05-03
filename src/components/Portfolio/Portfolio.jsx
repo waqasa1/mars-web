@@ -91,13 +91,15 @@ export default function Portfolio({ showAll = false }) {
           {displayedProjects.map((p, i) => (
             <div key={i} className="portfolio-card">
               <div className="image-wrapper" style={{ position: 'relative', overflow: 'hidden' }}>
-                <Image 
-                   src={p.image} 
-                   alt={p.title} 
-                   fill 
-                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                   className="project-image"
-                   loading="lazy"
+                <Image
+                  src={p.image}
+                  alt={p.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="project-image"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  priority={i === 0}
+                  style={{ objectFit: 'cover' }}
                 />
                 <div className="overlay">
                   <Link href={p.link} target="_blank" className="view-btn">View Live Project ↗</Link>
@@ -116,9 +118,11 @@ export default function Portfolio({ showAll = false }) {
       <style jsx>{`
         .portfolio-section {
           background: var(--bg-light);
-          color: var(--text-dark);
+          color: white;
           position: relative;
           z-index: 5;
+          background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+          overflow: hidden;
         }
 
         .portfolio-header {
@@ -142,7 +146,6 @@ export default function Portfolio({ showAll = false }) {
         }
 
         .view-all {
-          font-family: var(--font-display);
           font-weight: 600;
           color: var(--mars);
           display: flex;
@@ -166,25 +169,25 @@ export default function Portfolio({ showAll = false }) {
         }
 
         .portfolio-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
+          background: var(--glass-bg);
+          backdrop-filter: var(--glass-blur);
+          -webkit-backdrop-filter: var(--glass-blur);
           border-radius: var(--radius-2xl);
           overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 1px solid var(--glass-border);
+          transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
           display: flex;
           flex-direction: column;
           height: 100%;
           position: relative;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+          box-shadow: var(--glass-shadow);
         }
 
         .portfolio-card:hover {
-          background: rgba(255, 255, 255, 0.06);
-          transform: translateY(-10px);
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-          border-color: rgba(232, 68, 26, 0.3);
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-15px);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+          border-color: rgba(255, 255, 255, 0.4);
         }
 
         .image-wrapper {
@@ -225,7 +228,6 @@ export default function Portfolio({ showAll = false }) {
           color: white;
           padding: 12px 24px;
           border-radius: var(--radius-md);
-          font-family: var(--font-display);
           font-weight: 700;
           transform: translateY(20px);
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -268,7 +270,6 @@ export default function Portfolio({ showAll = false }) {
         }
 
         .project-desc {
-          font-family: var(--font-body);
           font-weight: 400;
           font-size: 1rem;
           color: var(--text-muted);
@@ -277,12 +278,20 @@ export default function Portfolio({ showAll = false }) {
 
         @media (max-width: 1024px) {
           .portfolio-grid { grid-template-columns: 1fr; gap: 32px; }
+          .portfolio-header { margin-bottom: 3rem; }
         }
 
-        @media (max-width: 640px) {
-          .portfolio-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-          .card-content { padding: 24px; padding-top: 0; }
+        @media (max-width: 768px) {
+          .section-padding { padding: 60px 0; }
+          .image-wrapper { margin: 12px; }
+          .card-content { padding: 24px; }
           .project-name { font-size: 1.25rem; }
+        }
+
+        @media (max-width: 480px) {
+          .portfolio-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+          .view-all { margin-bottom: 0; }
+          .card-content { padding: 20px; }
         }
       `}</style>
     </section>

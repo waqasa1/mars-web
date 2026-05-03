@@ -30,18 +30,22 @@ export default function Footer() {
       <div className="container footer-content">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link href="/" className="logo">
-              <div className="logo-img-wrapper">
-                <Image
-                  src="/assets/mars.png"
-                  alt="Mars Web Logo"
-                  width={24}
-                  height={24}
-                  className="logo-img"
-                />
+            <Link href="/" className="logo" style={{ textDecoration: 'none' }}>
+              <div className="logo-row" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div className="logo-img-wrapper" style={{ position: 'relative', width: '28px', height: '28px', flexShrink: 0 }}>
+                  <Image
+                    src="/assets/mars.png"
+                    alt="Mars Web Logo"
+                    width={24}
+                    height={24}
+                    className="logo-img"
+                  />
+                </div>
+                <div className="logo-text" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span className="mars" style={{ fontWeight: 800 }}>MARS</span>
+                  <span className="web" style={{ fontWeight: 800 }}>WEB</span>
+                </div>
               </div>
-              <span className="mars">MARS</span>
-              <span className="web">WEB</span>
             </Link>
             <p className="tagline">Beyond Earth. Beyond Ordinary.</p>
             <div className="social-links">
@@ -103,12 +107,12 @@ export default function Footer() {
 
         .footer-background-text {
           position: absolute;
-          bottom: 3%;
+          bottom: 5%;
           left: 50%;
           transform: translateX(-50%);
           font-family: "Playfair Display", "Cormorant Garamond", serif;
           font-weight: 900;
-          font-size: clamp(8rem, 25vw, 15rem);
+          font-size: clamp(8rem, 18vw, 15rem);
           color: rgba(255, 255, 255, 0.02);
           white-space: nowrap;
           z-index: 0;
@@ -240,21 +244,32 @@ export default function Footer() {
           display: flex;
           justify-content: space-between;
           padding-top: 40px;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
           font-family: var(--font-body);
           font-size: 0.9rem;
           color: #4A4E63;
         }
 
         @media (max-width: 1024px) {
-          .footer-grid { grid-template-columns: repeat(2, 1fr); }
-          .footer-background-text { font-size: clamp(6rem, 30vw, 15rem); bottom: 0; }
+          .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+          .footer-background-text { font-size: clamp(6rem, 25vw, 10rem); bottom: 5%; }
         }
 
-        @media (max-width: 640px) {
-          .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-          .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
-          .footer-background-text { font-size: 5rem; }
+        @media (max-width: 768px) {
+          .footer { padding: 80px 0 40px; }
+          .footer-grid { grid-template-columns: 1fr; gap: 48px; margin-bottom: 60px; text-align: center; }
+          .footer-brand .logo { justify-content: center; margin-bottom: 1.5rem; }
+          .social-links { justify-content: center; }
+          .footer-links { align-items: center; }
+          .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+          .footer-background-text { font-size: clamp(3rem, 15vw, 6rem); bottom: 10%; opacity: 0.03; }
+          .tagline { max-width: 250px; margin: 0 auto 2rem; }
+        }
+
+        @media (max-width: 480px) {
+          .footer-grid { gap: 40px; }
+          .footer-background-text { display: none; }
+          .col-title { font-size: 0.9rem; margin-bottom: 1.25rem; }
+          .footer-link { font-size: 0.9rem; }
         }
       `}</style>
     </footer>

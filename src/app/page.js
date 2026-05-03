@@ -14,17 +14,37 @@ import Testimonials from '@/components/Testimonials/Testimonials'
 import Contact from '@/components/Contact/Contact'
 import Footer from '@/components/Footer/Footer'
 
+// Persistent flag to prevent loader re-triggering during internal navigation
+let hasShownLoaderGlobal = false;
+
 export default function Home() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Force set loading to true initially and then handle complete
-  }, [])
+    setIsMounted(true);
+    
+    // Check both memory flag (for internal nav) and sessionStorage (for refresh)
+    const hasLoadedSession = typeof window !== 'undefined' && sessionStorage.getItem('mars_web_loaded');
+    
+    if (hasShownLoaderGlobal || hasLoadedSession) {
+      setLoading(false);
+    }
+  }, []);
 
+  const handleLoadingComplete = () => {
+    sessionStorage.setItem('mars_web_loaded', 'true');
+    hasShownLoaderGlobal = true;
+    setLoading(false);
+  }
+
+  // Prevent hydration mismatch by not rendering anything that depends on client-only state until mounted
+  // BUT we want to avoid the flash, so we use the 'hidden' class approach
+  
   return (
     <>
-      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      <div className={`main-content ${loading ? 'hidden' : 'visible'}`}>
+      {isMounted && loading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      <div className={`main-content ${(!isMounted || loading) ? 'hidden' : 'visible'}`}>
         <StarField />
         <NebulaBlobs />
         <Navbar />
@@ -42,14 +62,18 @@ export default function Home() {
       <style jsx>{`
         .main-content {
           transition: opacity 1s ease;
+          max-width: 100vw;
+          overflow-x: clip;
+          position: relative;
+          opacity: 0;
+        }
+        .main-content.visible {
+          opacity: 1;
         }
         .hidden {
-          opacity: 0;
           height: 100vh;
           overflow: hidden;
-        }
-        .visible {
-          opacity: 1;
+          pointer-events: none;
         }
       `}</style>
     </>

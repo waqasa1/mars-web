@@ -27,21 +27,23 @@ export default function Navbar() {
         <div className="container nav-inner">
 
           {/* Logo */}
-          <Link href="/" className="logo">
-            <div className="logo-img-wrapper">
-              <Image
-                src="/assets/mars.png"
-                alt="Mars Web Logo"
-                width={24}
-                height={24}
-                priority
-                loading="eager"
-                fetchPriority="high"
-                className="logo-img"
-              />
+          <Link href="/" className="logo" style={{ textDecoration: 'none' }}>
+            <div className="logo-row" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="logo-img-wrapper" style={{ position: 'relative', width: '32px', height: '32px', flexShrink: 0 }}>
+                <Image
+                  src="/assets/mars.png"
+                  alt="Mars Web Logo"
+                  width={28}
+                  height={28}
+                  priority
+                  className="logo-img"
+                />
+              </div>
+              <div className="logo-text" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span className="mars" style={{ fontWeight: 800 }}>MARS</span>
+                <span className="web" style={{ fontWeight: 800 }}>WEB</span>
+              </div>
             </div>
-            <span className="mars">MARS</span>
-            <span className="web">WEB</span>
           </Link>
 
           {/* Desktop Links */}
@@ -94,11 +96,11 @@ export default function Navbar() {
 
         .navbar.scrolled {
           padding: 1rem 0;
-          background: rgba(20, 24, 92, 0.8);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+          background: rgba(2, 4, 10, 0.85);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         .nav-inner {
@@ -108,50 +110,68 @@ export default function Navbar() {
         }
 
         .logo {
+          text-decoration: none;
+          color: white;
+          z-index: 10;
+        }
+
+        .logo-row {
           display: flex;
+          flex-direction: row;
           align-items: center;
-          gap: 10px;
-          font-family: var(--font-display);
+          gap: 12px;
+        }
+
+        .logo-text {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 4px;
+          font-family: var(--font-main);
           font-weight: 800;
-          font-size: 1.25rem;
-          letter-spacing: 0.1em;
+          font-size: 1.5rem;
+          letter-spacing: 0.05em;
+          white-space: nowrap;
+        }
+
+        .mars {
+          color: #FFFFFF;
+        }
+
+        .web {
+          color: var(--mars);
         }
 
         .logo-img-wrapper {
           position: relative;
-          width: 24px;
-          height: 24px;
+          width: 32px;
+          height: 32px;
           display: flex;
           align-items: center;
           justify-content: center;
-          filter: drop-shadow(0 0 8px var(--mars-glow));
+          filter: drop-shadow(0 0 10px var(--mars-glow));
         }
 
         .logo-img {
           object-fit: contain;
         }
 
-        .logo .mars { color: var(--star-white); transition: color 0.3s ease; }
-        .logo .web { color: var(--mars); }
-
-        .navbar.scrolled .logo .mars {
-          color: white;
-        }
-
         .nav-links {
           display: flex;
           align-items: center;
-          gap: 2.5rem;
+          gap: 3rem;
+          min-width: 400px; /* Stabilize container */
+          justify-content: center;
         }
 
         .nav-link {
-          font-family: var(--font-display);
-          font-weight: 600;
-          font-size: 0.875rem;
-          color: var(--star-dim);
+          font-family: var(--font-main);
+          font-weight: 500;
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          transition: color 0.3s ease;
+          letter-spacing: 0.1em;
+          transition: all 0.3s ease;
         }
 
         .navbar.scrolled .nav-link {
@@ -159,38 +179,41 @@ export default function Navbar() {
         }
 
         .nav-link:hover {
-          color: var(--star-white);
+          color: white;
+          transform: translateY(-1px);
         }
 
         .navbar.scrolled .nav-link:hover {
-          color: var(--mars);
+          color: var(--mars-glow);
         }
 
         .cta-button {
           background: var(--mars);
           color: white;
-          font-family: var(--font-display);
-          font-weight: 600;
-          font-size: 0.875rem;
-          padding: 10px 24px;
+          font-family: var(--font-main);
+          font-weight: 700;
+          font-size: 0.85rem;
+          padding: 12px 28px;
           border-radius: var(--radius-md);
           display: flex;
           align-items: center;
-          gap: 8px;
-          transition: all 0.3s ease;
+          gap: 10px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
         }
 
         .cta-button:hover {
           background: var(--mars-glow);
-          box-shadow: 0 0 20px rgba(232, 68, 26, 0.4);
-          transform: translateY(-1px);
+          box-shadow: 0 10px 25px rgba(232, 68, 26, 0.4);
+          transform: translateY(-2px);
         }
 
         /* Hamburger */
         .hamburger {
           display: none;
           flex-direction: column;
-          gap: 5px;
+          gap: 6px;
           background: none;
           border: none;
           cursor: pointer;
@@ -198,9 +221,9 @@ export default function Navbar() {
         }
 
         .hamburger span {
-          width: 22px;
+          width: 26px;
           height: 2px;
-          background: var(--star-white);
+          background: white;
           transition: all 0.3s ease;
         }
 

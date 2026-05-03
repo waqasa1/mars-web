@@ -25,7 +25,7 @@ const values = [
 
 export default function WhyUs() {
   return (
-    <section className="why-us">
+    <section className="why-us section-padding">
       <div className="container sticky-container">
         <div className="sticky-left">
           <div className="content-wrapper">
@@ -35,7 +35,7 @@ export default function WhyUs() {
               We build <span className="highlight">growth engines.</span>
             </h2>
             <p className="philosophy">
-              Our approach goes beyond aesthetics. We engineer high-performance digital tools 
+              Our approach goes beyond aesthetics. We engineer high-performance digital tools
               designed to scale your business and dominate your market.
             </p>
             <div className="cta-mini">
@@ -62,23 +62,28 @@ export default function WhyUs() {
         .why-us {
           background: var(--bg-white);
           position: relative;
-          color: var(--text-dark);
+          color: white;
+          background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+          overflow: clip;
         }
 
         .sticky-container {
           display: flex;
-          gap: 80px;
+          gap: 100px;
           position: relative;
-          min-height: 200vh; /* Give enough room for scrolling */
+          align-items: flex-start;
+          overflow: visible;
         }
 
         .sticky-left {
           flex: 1;
-          height: 100vh;
+          height: calc(100vh - 120px);
           position: sticky;
-          top: 0;
+          top: 120px;
           display: flex;
           align-items: center;
+          z-index: 2;
+          align-self: flex-start;
         }
 
         .content-wrapper {
@@ -86,111 +91,140 @@ export default function WhyUs() {
         }
 
         .eyebrow {
-          font-family: var(--font-mono);
           font-size: 0.875rem;
           color: var(--mars);
-          letter-spacing: 0.2em;
+          letter-spacing: 0.3em;
           margin-bottom: 2rem;
           display: block;
+          font-weight: 600;
         }
 
         .statement {
           font-size: clamp(2.5rem, 5vw, 4.5rem);
           line-height: 1.1;
           margin-bottom: 2.5rem;
-          font-weight: 800;
-          letter-spacing: -0.03em;
+          font-weight: 900;
+          letter-spacing: -0.04em;
         }
 
         .highlight {
           color: var(--mars);
-          position: relative;
+          text-shadow: 0 0 30px rgba(232, 68, 26, 0.3);
         }
 
         .philosophy {
-          font-family: var(--font-body);
           font-weight: 400;
           font-size: 1.125rem;
           color: var(--text-muted);
           line-height: 1.8;
-          margin-bottom: 3rem;
+          margin-bottom: 3.5rem;
         }
 
         .cta-mini {
           display: flex;
           align-items: center;
-          gap: 12px;
-          font-family: var(--font-display);
-          font-weight: 600;
-          font-size: 0.9rem;
-          color: var(--text-dark);
+          gap: 16px;
+          font-weight: 700;
+          font-size: 0.95rem;
+          color: white;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
         }
 
         .dot {
-          width: 8px;
-          height: 8px;
+          width: 10px;
+          height: 10px;
           background: var(--mars);
           border-radius: 50%;
-          box-shadow: 0 0 10px var(--mars);
+          box-shadow: 0 0 15px var(--mars);
         }
 
         .scrolling-right {
           flex: 1;
-          padding: 100px 0;
+          padding: 10vh 0;
         }
 
         .value-item {
-          min-height: 60vh;
+          min-height: 100vh;
           display: flex;
           align-items: center;
+          padding: 40px 0;
         }
 
         .value-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          padding: 48px;
+          background: var(--glass-bg);
+          backdrop-filter: var(--glass-blur);
+          -webkit-backdrop-filter: var(--glass-blur);
+          padding: 64px;
           border-radius: var(--radius-2xl);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.4s ease;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          border: 1px solid var(--glass-border);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: var(--glass-shadow), inset 0 0 20px rgba(255, 255, 255, 0.05);
+          position: relative;
+          width: 100%;
+          min-height: 400px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .value-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+          pointer-events: none;
         }
 
         .value-item:hover .value-card {
           background: rgba(255, 255, 255, 0.08);
-          transform: translateX(-10px);
-          border-color: rgba(232, 68, 26, 0.3);
-          box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.3);
+          transform: translateX(-15px) scale(1.02);
+          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
         }
 
         .value-num {
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: 3.5rem;
+          font-weight: 900;
+          font-size: 5rem;
           color: var(--mars);
-          opacity: 0.2;
+          opacity: 0.15;
           display: block;
-          margin-bottom: 1rem;
+          margin-bottom: 1.5rem;
+          line-height: 1;
         }
 
         .value-title {
-          font-size: 1.75rem;
-          margin-bottom: 1.25rem;
-          font-weight: 700;
+          font-size: 2.25rem;
+          margin-bottom: 1.5rem;
+          font-weight: 800;
+          letter-spacing: -0.02em;
         }
 
         .value-desc {
-          font-family: var(--font-body);
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           color: var(--text-muted);
-          line-height: 1.6;
+          line-height: 1.7;
         }
 
         @media (max-width: 1024px) {
-          .sticky-container { flex-direction: column; gap: 40px; min-height: auto; }
-          .sticky-left { height: auto; position: relative; padding-top: 80px; }
-          .scrolling-right { padding-top: 0; }
-          .value-item { min-height: auto; padding: 20px 0; }
+          .sticky-container { gap: 60px; }
+          .sticky-left { height: calc(100vh - 100px); top: 100px; }
+        }
+
+        @media (max-width: 768px) {
+          .section-padding { padding: 60px 0; }
+          .sticky-container { flex-direction: column; gap: 48px; }
+          .sticky-left { height: auto; position: relative; top: auto; padding: 0; }
+          .scrolling-right { padding: 0; width: 100%; }
+          .value-item { min-height: auto; padding: 0; margin-bottom: 32px; }
+          .value-card { padding: 48px 32px; min-height: auto; }
+          .value-num { font-size: 3.5rem; margin-bottom: 1rem; }
+          .value-title { font-size: 1.75rem; margin-bottom: 1rem; }
+          .value-desc { font-size: 1rem; }
+          .statement { font-size: clamp(2.25rem, 8vw, 3.25rem); margin-bottom: 1.5rem; }
+          .philosophy { font-size: 1rem; margin-bottom: 2rem; }
+          .content-wrapper { max-width: 100%; }
         }
       `}</style>
     </section>

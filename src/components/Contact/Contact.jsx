@@ -28,7 +28,7 @@ export default function Contact() {
           <div className="contact-info">
             <h2 className="section-title">Ready to Launch Your Project?</h2>
             <p className="contact-subtext">
-              We're currently accepting new projects and would love to hear about your vision. 
+              We're currently accepting new projects and would love to hear about your vision.
               Let's build something extraordinary together.
             </p>
 
@@ -62,16 +62,16 @@ export default function Contact() {
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Full Name</label>
-                <input 
-                  type="text" name="name" required 
-                  placeholder="John Doe" 
+                <input
+                  type="text" name="name" required
+                  placeholder="John Doe"
                   value={formData.name} onChange={handleChange}
                 />
               </div>
               <div className="form-group">
                 <label>Email Address</label>
-                <input 
-                  type="email" name="email" required 
+                <input
+                  type="email" name="email" required
                   placeholder="john@example.com"
                   value={formData.email} onChange={handleChange}
                 />
@@ -89,8 +89,8 @@ export default function Contact() {
               </div>
               <div className="form-group">
                 <label>Project Brief</label>
-                <textarea 
-                  name="message" rows="4" required 
+                <textarea
+                  name="message" rows="4" required
                   placeholder="Tell us about your project..."
                   value={formData.message} onChange={handleChange}
                 ></textarea>

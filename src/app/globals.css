@@ -2,23 +2,31 @@
   --mars: #E8441A;
   --mars-glow: #FF6B35;
   --mars-dim: #992D11;
-  --space-deep: #03050F;
-  --space-void: #02040A;
-  --space-surface: #0D1228;
-  --space-elevated: #131A30;
+  --space-deep: #02040A;
+  --space-void: #010206;
+  --space-surface: #080B1A;
+  --space-elevated: #10142B;
   --star-white: #E8E9F3;
-  --star-dim: #8B8FA8;
+  --star-dim: #b4b7cc;
   --star-faint: #4A4E63;
   --nebula-blue: #3B82F6;
   --nebula-purple: #4C1D95;
   --cyan: #22D3EE;
-  --bg-light: #0c0e2e;
-  --bg-white: #0c0e2e;
+
+  --bg-light: #05070A;
+  --bg-white: #060914;
+
   --text-dark: #FFFFFF;
-  --text-muted: #CBD5E1;
-  --border-light: rgba(255, 255, 255, 0.1);
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text-muted: #94A3B8;
+  --border-light: rgba(255, 255, 255, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.05);
   --border-glow: rgba(232, 68, 26, 0.3);
+
+  /* Glassmorphism Extreme */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-blur: blur(32px);
+  --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
   /* Spacing */
   --xs: 4px;
@@ -36,10 +44,8 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* Fonts */
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Fonts - Linked to layout.js variables for zero CLS */
+  --font-main: var(--font-outfit), sans-serif;
 }
 
 * {
@@ -50,22 +56,28 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 body {
   background: var(--space-deep);
   color: var(--star-white);
-  font-family: var(--font-body);
+  font-family: var(--font-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.2;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 a {
@@ -92,6 +104,10 @@ button {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
   .section-padding {
     padding: var(--xl) 0;
   }
@@ -99,7 +115,7 @@ button {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -107,33 +123,26 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--space-surface);
+  background: var(--space-elevated);
   border-radius: 10px;
+  border: 2px solid var(--space-void);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--mars-dim);
-}
-
-/* Background text for branding */
-.background-text {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 20vw;
-  color: rgba(255, 255, 255, 0.02);
-  z-index: -1;
-  pointer-events: none;
-  white-space: nowrap;
+  background: var(--mars);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-in {
@@ -143,11 +152,8 @@ button {
 .section-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 2rem;
-  background: linear-gradient(to right, #fff, var(--star-dim));
+  background: linear-gradient(to right, #fff, #94A3B8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.section-header {
-  margin-bottom: 4rem;
+  font-weight: 900;
 }

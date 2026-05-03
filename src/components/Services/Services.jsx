@@ -68,13 +68,14 @@ export default function Services() {
         .services-section {
           background: var(--bg-light);
           position: relative;
+          background: linear-gradient(180deg, var(--space-deep) 0%, var(--bg-light) 100%);
           overflow: hidden;
         }
 
         .section-header {
           position: relative;
           text-align: center;
-          margin-bottom: 5rem;
+          margin-bottom: 6rem;
         }
 
         .watermark {
@@ -84,70 +85,80 @@ export default function Services() {
           transform: translate(-50%, -50%);
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: clamp(4rem, 15vw, 10rem);
-          color: rgba(255, 255, 255, 0.03);
+          font-size: clamp(4rem, 15vw, 12rem);
+          color: rgba(255, 255, 255, 0.02);
           z-index: 0;
           pointer-events: none;
+          letter-spacing: 0.1em;
         }
 
         .section-title {
           font-size: clamp(2.5rem, 4vw, 3.5rem);
-          color: var(--text-dark);
+          color: white;
           position: relative;
           z-index: 1;
         }
 
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          grid-template-columns: repeat(3, 1fr);
           gap: 32px;
         }
 
         .service-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: var(--glass-bg);
+          backdrop-filter: var(--glass-blur);
+          -webkit-backdrop-filter: var(--glass-blur);
+          border: 1px solid var(--glass-border);
           border-radius: var(--radius-2xl);
-          padding: 48px;
-          transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.2),
-            inset 0 0 20px rgba(255, 255, 255, 0.02);
+          padding: 64px 48px;
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: var(--glass-shadow), inset 0 0 20px rgba(255, 255, 255, 0.02);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+        }
+
+        .service-card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+          pointer-events: none;
         }
 
         .service-card:hover {
-          background: rgba(255, 255, 255, 0.08);
-          transform: translateY(-12px);
-          box-shadow: 
-            0 25px 50px -12px rgba(0, 0, 0, 0.4),
-            0 0 0 1px rgba(232, 68, 26, 0.3);
-          border-color: rgba(232, 68, 26, 0.4);
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-15px);
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+          border-color: rgba(255, 255, 255, 0.4);
         }
 
         .service-icon {
-          font-size: 3.5rem;
+          font-size: 4rem;
           margin-bottom: 2.5rem;
           display: block;
           transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+          filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
         }
 
         .service-card:hover .service-icon {
-          transform: scale(1.15) rotate(8deg);
+          transform: scale(1.1) rotate(5deg);
         }
 
         .service-name {
           font-size: 1.75rem;
           margin-bottom: 1.5rem;
-          color: var(--text-dark);
-          font-weight: 700;
+          color: white;
+          font-weight: 800;
           letter-spacing: -0.02em;
         }
 
         .service-desc {
-          font-family: var(--font-body);
           font-weight: 400;
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           color: var(--text-muted);
           margin-bottom: 2.5rem;
           line-height: 1.7;
@@ -157,33 +168,35 @@ export default function Services() {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
+          margin-top: auto;
         }
 
         .tech-tag {
-          font-family: var(--font-mono);
           font-size: 0.8rem;
           background: rgba(255, 255, 255, 0.05);
           color: rgba(255, 255, 255, 0.7);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 6px 14px;
+          padding: 8px 16px;
           border-radius: var(--radius-full);
           transition: all 0.3s ease;
-          font-weight: 500;
+          font-weight: 600;
         }
 
         .service-card:hover .tech-tag {
-          background: rgba(232, 68, 26, 0.1);
+          background: rgba(232, 68, 26, 0.15);
           color: var(--mars-glow);
-          border-color: rgba(232, 68, 26, 0.3);
+          border-color: rgba(232, 68, 26, 0.4);
         }
 
-        @media (max-width: 640px) {
-          .services-grid { grid-template-columns: 1fr; }
-          .service-card { padding: 32px; }
+        @media (max-width: 1280px) {
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 640px) {
-          .services-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+          .services-grid { grid-template-columns: 1fr; gap: 24px; }
+          .service-card { padding: 48px 32px; }
+          .service-icon { font-size: 3.5rem; }
+          .service-name { font-size: 1.5rem; }
         }
       `}</style>
     </section>
