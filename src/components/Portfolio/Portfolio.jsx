@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import placeholders from '@/data/placeholders.json'
 
 export const projects = [
   {
@@ -100,6 +101,8 @@ export default function Portfolio({ showAll = false }) {
                   loading={i === 0 ? "eager" : "lazy"}
                   priority={i === 0}
                   style={{ objectFit: 'cover' }}
+                  placeholder="blur"
+                  blurDataURL={placeholders[p.image.replace('/assets/', '')]}
                 />
                 <div className="overlay">
                   <Link href={p.link} target="_blank" className="view-btn">View Live Project ↗</Link>
@@ -192,10 +195,11 @@ export default function Portfolio({ showAll = false }) {
 
         .image-wrapper {
           position: relative;
-          aspect-ratio: 16/10;
+          aspect-ratio: 16/9;
           margin: 16px;
           border-radius: var(--radius-xl);
           background: #000;
+          height: 280px; /* Fixed height for consistency */
         }
 
         .project-image {
@@ -283,7 +287,7 @@ export default function Portfolio({ showAll = false }) {
 
         @media (max-width: 768px) {
           .section-padding { padding: 60px 0; }
-          .image-wrapper { margin: 12px; }
+          .image-wrapper { margin: 12px; height: 200px; }
           .card-content { padding: 24px; }
           .project-name { font-size: 1.25rem; }
         }
