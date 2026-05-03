@@ -59,23 +59,6 @@ export default function Home() {
         </main>
         <Footer />
       </div>
-      <style jsx>{`
-        .main-content {
-          transition: opacity 1s ease;
-          max-width: 100vw;
-          overflow-x: clip;
-          position: relative;
-          opacity: 0;
-        }
-        .main-content.visible {
-          opacity: 1;
-        }
-        .hidden {
-          height: 100vh;
-          overflow: hidden;
-          pointer-events: none;
-        }
-      `}</style>
     </>
   )
 }
