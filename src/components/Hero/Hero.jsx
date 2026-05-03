@@ -10,6 +10,25 @@ export default function Hero() {
       <HeroParticles />
 
       <div className="container hero-inner">
+        <div className="mars-visual">
+          <div className="mars-wrapper">
+            <div className="mars-atmosphere"></div>
+            <div className="mars-planet-container">
+              <Image
+                src="/assets/mars2.png"
+                alt="Mars Planet"
+                width={800}
+                height={800}
+                priority
+                loading="eager"
+                fetchPriority="high"
+                className="mars-planet-img"
+              />
+            </div>
+            <div className="mars-ring"></div>
+          </div>
+        </div>
+
         <div className="hero-content">
           <p className="eyebrow">WE BUILD DIGITAL WORLDS</p>
           <h1>
@@ -25,25 +44,6 @@ export default function Hero() {
             <Link href="#portfolio" className="btn btn-ghost">View Our Work</Link>
           </div>
         </div>
-
-        <div className="mars-visual">
-          <div className="mars-wrapper">
-            <div className="mars-atmosphere"></div>
-            <div className="mars-planet-container">
-              <Image
-                src="/assets/mars2.png"
-                alt="Mars Planet"
-                width={600}
-                height={600}
-                priority
-                loading="eager"
-                fetchPriority="high"
-                className="mars-planet-img"
-              />
-            </div>
-            <div className="mars-ring"></div>
-          </div>
-        </div>
       </div>
 
       <style jsx>{`
@@ -52,23 +52,28 @@ export default function Hero() {
           min-height: 100vh;
           display: flex;
           align-items: center;
+          justify-content: center;
           overflow: hidden;
           padding-top: 100px;
           padding-bottom: 60px;
         }
 
         .hero-inner {
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
+          display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 40px;
+          justify-content: center;
+          text-align: center;
           z-index: 1;
+          position: relative;
+          width: 100%;
         }
 
         .hero-content {
-          grid-column: span 7;
           position: relative;
-          z-index: 2;
+          z-index: 10;
+          max-width: 900px;
+          margin-top: 20px; /* Pull text up over the planet */
         }
 
         .eyebrow {
@@ -85,10 +90,11 @@ export default function Hero() {
         h1 {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: clamp(3rem, 6.5vw, 5.5rem);
-          line-height: 0.95;
+          font-size: clamp(3.5rem, 8vw, 6.5rem);
+          line-height: 0.9;
           margin-bottom: 2rem;
           letter-spacing: -0.02em;
+          text-shadow: 0 10px 30px rgba(3, 5, 15, 0.8);
         }
 
         .highlight-text {
@@ -105,14 +111,16 @@ export default function Hero() {
           font-weight: 400;
           font-size: 1.25rem;
           color: var(--star-dim);
-          max-width: 580px;
-          margin-bottom: 3rem;
+          max-width: 650px;
+          margin: 0 auto 3rem;
           line-height: 1.6;
+          text-shadow: 0 5px 15px rgba(3, 5, 15, 0.5);
         }
 
         .cta-group {
           display: flex;
           gap: 20px;
+          justify-content: center;
         }
 
         .btn {
@@ -140,6 +148,7 @@ export default function Hero() {
           border: 1px solid var(--border-subtle);
           color: var(--star-white);
           backdrop-filter: blur(10px);
+          background: rgba(255, 255, 255, 0.03);
         }
 
         .btn-ghost:hover {
@@ -151,58 +160,58 @@ export default function Hero() {
         /* ── Mars Visual ── */
 
         .mars-visual {
-          grid-column: span 5;
+          position: absolute;
+          top: 45%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          position: relative;
+          z-index: 1;
+          pointer-events: none;
+          opacity: 0.7;
         }
 
         .mars-wrapper {
           position: relative;
           width: 100%;
-          max-width: 520px;
+          max-width: 800px;
           aspect-ratio: 1;
           display: flex;
           align-items: center;
           justify-content: center;
-          animation: marsFloat 7s ease-in-out infinite alternate;
+          animation: marsFloat 10s ease-in-out infinite alternate;
         }
 
-        /* Outer deep glow — large, very soft */
         .mars-atmosphere {
           position: absolute;
-          inset: -25%;
+          inset: -15%;
           border-radius: 50%;
           background: radial-gradient(
             circle,
-            rgba(232, 68, 26, 0.18) 0%,
-            rgba(139, 42, 16, 0.08) 35%,
-            transparent 65%
-          );
-          animation: atmospherePulse 4s ease-in-out infinite alternate;
-          pointer-events: none;
-        }
-
-        /* Tight inner glow ring right behind the planet */
-        .mars-ring {
-          position: absolute;
-          inset: 5%;
-          border-radius: 50%;
-          background: radial-gradient(
-            circle,
-            rgba(232, 68, 26, 0.12) 0%,
-            rgba(255, 107, 53, 0.06) 50%,
+            rgba(232, 68, 26, 0.25) 0%,
+            rgba(139, 42, 16, 0.1) 40%,
             transparent 70%
           );
-          filter: blur(20px);
-          animation: atmospherePulse 4s ease-in-out infinite alternate-reverse;
-          pointer-events: none;
+          animation: atmospherePulse 5s ease-in-out infinite alternate;
+        }
+
+        .mars-ring {
+          position: absolute;
+          inset: 0%;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(232, 68, 26, 0.15) 0%,
+            transparent 75%
+          );
+          filter: blur(40px);
         }
 
         .mars-planet-container {
           position: relative;
-          width: 88%;
+          width: 80%;
           aspect-ratio: 1;
           z-index: 1;
         }
@@ -212,52 +221,27 @@ export default function Hero() {
           height: auto !important;
           object-fit: contain;
           border-radius: 50%;
-          /* Terminator shadow — simulates sunlight from upper-left */
           filter:
-            drop-shadow(0 0 40px rgba(232, 68, 26, 0.35))
-            drop-shadow(0 0 80px rgba(232, 68, 26, 0.15))
-            drop-shadow(0 0 120px rgba(232, 68, 26, 0.08));
-          animation: marsSpin 90s linear infinite;
+            drop-shadow(0 0 50px rgba(232, 68, 26, 0.4));
+          animation: marsSpin 120s linear infinite;
         }
 
-        /* Terminator overlay — dark shadow on the right side of the planet */
         .mars-planet-container::after {
           content: '';
           position: absolute;
           inset: 0;
           border-radius: 50%;
           background: radial-gradient(
-            ellipse at 72% 50%,
-            rgba(3, 5, 15, 0.55) 0%,
-            rgba(3, 5, 15, 0.2) 40%,
-            transparent 65%
+            circle at 30% 30%,
+            transparent 0%,
+            rgba(3, 5, 15, 0.6) 80%
           );
-          pointer-events: none;
           z-index: 2;
         }
 
-        /* Specular highlight — sun glint upper-left */
-        .mars-planet-container::before {
-          content: '';
-          position: absolute;
-          top: 8%;
-          left: 10%;
-          width: 28%;
-          height: 20%;
-          border-radius: 50%;
-          background: radial-gradient(
-            ellipse,
-            rgba(255, 220, 180, 0.12) 0%,
-            transparent 70%
-          );
-          pointer-events: none;
-          z-index: 3;
-          filter: blur(8px);
-        }
-
         @keyframes marsFloat {
-          from { transform: translateY(0px) rotate(0deg); }
-          to   { transform: translateY(-28px) rotate(0.8deg); }
+          from { transform: translateY(0px) rotate(0deg) scale(1); }
+          to   { transform: translateY(-30px) rotate(1deg) scale(1.02); }
         }
 
         @keyframes marsSpin {
@@ -266,41 +250,30 @@ export default function Hero() {
         }
 
         @keyframes atmospherePulse {
-          from { opacity: 0.6; transform: scale(0.97); }
-          to   { opacity: 1;   transform: scale(1.03); }
+          from { opacity: 0.5; transform: scale(0.95); }
+          to   { opacity: 0.9;   transform: scale(1.05); }
         }
 
         /* ── Responsive ── */
 
-        @media (max-width: 1200px) {
-          .hero-inner { gap: 20px; }
-          h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-        }
-
         @media (max-width: 1024px) {
-          .hero { padding-top: 140px; }
-          .hero-inner { grid-template-columns: 1fr; text-align: center; }
-          .hero-content { grid-column: 1; display: flex; flex-direction: column; align-items: center; }
-          .subheading { margin-left: auto; margin-right: auto; }
-          .cta-group { justify-content: center; }
-          .mars-visual { grid-column: 1; margin-top: 2rem; order: -1; }
-          .mars-wrapper { max-width: 320px; }
-          h1 { font-size: clamp(2.2rem, 8vw, 3.8rem); }
+          .hero-content { margin-top: -60px; }
+          h1 { font-size: clamp(3rem, 10vw, 5rem); }
+          .mars-wrapper { max-width: 600px; }
         }
 
         @media (max-width: 640px) {
           .hero { padding-top: 120px; }
-          .cta-group { flex-direction: column; width: 100%; max-width: 300px; }
+          .cta-group { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
           .btn { width: 100%; text-align: center; }
-          .eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; }
-          .mars-wrapper { max-width: 260px; }
+          .mars-wrapper { max-width: 400px; }
+          h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .mars-wrapper { animation: none; }
           .mars-planet-img { animation: none; }
           .mars-atmosphere { animation: none; }
-          .mars-ring { animation: none; }
         }
       `}</style>
     </section>

@@ -41,7 +41,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding">
+    <section id="services" className="services-section section-padding">
       <div className="container">
         <div className="section-header">
           <span className="watermark">SERVICES</span>
@@ -65,6 +65,12 @@ export default function Services() {
       </div>
 
       <style jsx>{`
+        .services-section {
+          background: var(--bg-light);
+          position: relative;
+          overflow: hidden;
+        }
+
         .section-header {
           position: relative;
           text-align: center;
@@ -79,70 +85,101 @@ export default function Services() {
           font-family: var(--font-display);
           font-weight: 800;
           font-size: clamp(4rem, 15vw, 10rem);
-          color: var(--space-elevated);
-          z-index: -1;
-          opacity: 0.5;
+          color: rgba(255, 255, 255, 0.03);
+          z-index: 0;
+          pointer-events: none;
         }
 
         .section-title {
-          font-size: clamp(2rem, 4vw, 3.5rem);
-          color: var(--star-white);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          color: var(--text-dark);
+          position: relative;
+          z-index: 1;
         }
 
         .services-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 24px;
+          gap: 32px;
         }
 
         .service-card {
-          background: var(--space-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-lg);
-          padding: 32px;
-          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-2xl);
+          padding: 48px;
+          transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.02);
         }
 
         .service-card:hover {
-          border-color: var(--border-glow);
-          transform: translateY(-8px);
-          box-shadow: 0 15px 35px rgba(3, 5, 15, 0.5);
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateY(-12px);
+          box-shadow: 
+            0 25px 50px -12px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(232, 68, 26, 0.3);
+          border-color: rgba(232, 68, 26, 0.4);
         }
 
         .service-icon {
-          font-size: 2.5rem;
-          margin-bottom: 1.5rem;
+          font-size: 3.5rem;
+          margin-bottom: 2.5rem;
+          display: block;
+          transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .service-card:hover .service-icon {
+          transform: scale(1.15) rotate(8deg);
         }
 
         .service-name {
-          font-size: 1.25rem;
-          margin-bottom: 1rem;
-          color: var(--star-white);
+          font-size: 1.75rem;
+          margin-bottom: 1.5rem;
+          color: var(--text-dark);
+          font-weight: 700;
+          letter-spacing: -0.02em;
         }
 
         .service-desc {
           font-family: var(--font-body);
-          font-weight: 300;
-          font-size: 0.9rem;
-          color: var(--star-dim);
-          margin-bottom: 1.5rem;
-          line-height: 1.6;
+          font-weight: 400;
+          font-size: 1.05rem;
+          color: var(--text-muted);
+          margin-bottom: 2.5rem;
+          line-height: 1.7;
         }
 
         .tech-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: 8px;
+          gap: 12px;
         }
 
         .tech-tag {
           font-family: var(--font-mono);
-          font-size: 0.75rem;
-          background: rgba(232, 68, 26, 0.1);
-          color: var(--mars);
-          border: 1px solid rgba(232, 68, 26, 0.2);
-          padding: 3px 10px;
+          font-size: 0.8rem;
+          background: rgba(255, 255, 255, 0.05);
+          color: rgba(255, 255, 255, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 6px 14px;
           border-radius: var(--radius-full);
+          transition: all 0.3s ease;
+          font-weight: 500;
+        }
+
+        .service-card:hover .tech-tag {
+          background: rgba(232, 68, 26, 0.1);
+          color: var(--mars-glow);
+          border-color: rgba(232, 68, 26, 0.3);
+        }
+
+        @media (max-width: 640px) {
+          .services-grid { grid-template-columns: 1fr; }
+          .service-card { padding: 32px; }
         }
 
         @media (max-width: 640px) {

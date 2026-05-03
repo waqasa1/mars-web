@@ -94,9 +94,11 @@ export default function Navbar() {
 
         .navbar.scrolled {
           padding: 1rem 0;
-          background: rgba(3, 5, 15, 0.8);
+          background: rgba(20, 24, 92, 0.8);
           backdrop-filter: blur(20px);
-          border-bottom: 1px solid var(--border-subtle);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
         }
 
         .nav-inner {
@@ -129,8 +131,12 @@ export default function Navbar() {
           object-fit: contain;
         }
 
-        .logo .mars { color: var(--star-white); }
+        .logo .mars { color: var(--star-white); transition: color 0.3s ease; }
         .logo .web { color: var(--mars); }
+
+        .navbar.scrolled .logo .mars {
+          color: white;
+        }
 
         .nav-links {
           display: flex;
@@ -145,10 +151,19 @@ export default function Navbar() {
           color: var(--star-dim);
           text-transform: uppercase;
           letter-spacing: 0.05em;
+          transition: color 0.3s ease;
+        }
+
+        .navbar.scrolled .nav-link {
+          color: rgba(255, 255, 255, 0.8);
         }
 
         .nav-link:hover {
           color: var(--star-white);
+        }
+
+        .navbar.scrolled .nav-link:hover {
+          color: var(--mars);
         }
 
         .cta-button {
@@ -187,6 +202,10 @@ export default function Navbar() {
           height: 2px;
           background: var(--star-white);
           transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .hamburger span {
+          background: white;
         }
 
         .hamburger.open span:nth-child(1) {

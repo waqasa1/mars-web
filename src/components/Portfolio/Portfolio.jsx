@@ -73,10 +73,13 @@ export default function Portfolio({ showAll = false }) {
   const displayedProjects = showAll ? projects : projects.slice(0, 2)
 
   return (
-    <section id="portfolio" className="section-padding">
+    <section id="portfolio" className="portfolio-section section-padding">
       <div className="container">
         <div className="portfolio-header">
-          <h2 className="section-title">{showAll ? 'All Projects' : 'Our Work'}</h2>
+          <div className="header-text">
+            <h2 className="section-title">{showAll ? 'All Projects' : 'Our Work'}</h2>
+            <p className="portfolio-subtext">Selected works that define our engineering excellence.</p>
+          </div>
           {!showAll && (
             <Link href="/projects" className="view-all">
               View All Projects <span>→</span>
@@ -87,15 +90,14 @@ export default function Portfolio({ showAll = false }) {
         <div className="portfolio-grid">
           {displayedProjects.map((p, i) => (
             <div key={i} className="portfolio-card">
-              <div className="image-wrapper">
+              <div className="image-wrapper" style={{ position: 'relative', overflow: 'hidden' }}>
                 <Image 
-                  src={p.image} 
-                  alt={p.title} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="project-image"
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                   src={p.image} 
+                   alt={p.title} 
+                   fill 
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                   className="project-image"
+                   loading="lazy"
                 />
                 <div className="overlay">
                   <Link href={p.link} target="_blank" className="view-btn">View Live Project ↗</Link>
@@ -112,6 +114,13 @@ export default function Portfolio({ showAll = false }) {
       </div>
 
       <style jsx>{`
+        .portfolio-section {
+          background: var(--bg-light);
+          color: var(--text-dark);
+          position: relative;
+          z-index: 5;
+        }
+
         .portfolio-header {
           display: flex;
           justify-content: space-between;
@@ -119,8 +128,17 @@ export default function Portfolio({ showAll = false }) {
           margin-bottom: 4rem;
         }
 
+        .portfolio-subtext {
+          color: var(--text-muted);
+          font-size: 1.1rem;
+          margin-top: 0.5rem;
+        }
+
         .section-title {
-          font-size: clamp(2rem, 4vw, 3.5rem);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          margin-bottom: 0;
         }
 
         .view-all {
@@ -129,53 +147,57 @@ export default function Portfolio({ showAll = false }) {
           color: var(--mars);
           display: flex;
           align-items: center;
-          gap: 8px;
-          margin-bottom: 10px;
+          gap: 12px;
+          margin-bottom: 12px;
           text-decoration: none;
-          font-size: 1rem;
-          transition: color 0.3s ease;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
         }
 
         .view-all:hover {
           color: var(--mars-glow);
+          transform: translateX(5px);
         }
 
         .portfolio-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 40px;
+          gap: 32px;
         }
 
         .portfolio-card {
-          background: var(--space-surface);
-          border-radius: var(--radius-xl);
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-radius: var(--radius-2xl);
           overflow: hidden;
-          border: 1px solid var(--border-subtle);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
           display: flex;
           flex-direction: column;
           height: 100%;
-        }
-
-        .portfolio-card:nth-child(2) {
-          margin-top: 60px;
+          position: relative;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .portfolio-card:hover {
-          border-color: var(--mars-glow);
-          transform: translateY(-12px);
-          box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+          background: rgba(255, 255, 255, 0.06);
+          transform: translateY(-10px);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+          border-color: rgba(232, 68, 26, 0.3);
         }
 
         .image-wrapper {
           position: relative;
-          aspect-ratio: 16/9;
-          overflow: hidden;
+          aspect-ratio: 16/10;
+          margin: 16px;
+          border-radius: var(--radius-xl);
+          background: #000;
         }
 
         .project-image {
           object-fit: cover;
-          transition: transform 0.5s ease;
+          transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .portfolio-card:hover .project-image {
@@ -185,12 +207,13 @@ export default function Portfolio({ showAll = false }) {
         .overlay {
           position: absolute;
           inset: 0;
-          background: rgba(3, 5, 15, 0.4);
+          background: rgba(3, 5, 15, 0.6);
+          backdrop-filter: blur(4px);
           display: flex;
           align-items: center;
           justify-content: center;
           opacity: 0;
-          transition: opacity 0.3s ease;
+          transition: all 0.4s ease;
         }
 
         .portfolio-card:hover .overlay {
@@ -203,11 +226,19 @@ export default function Portfolio({ showAll = false }) {
           padding: 12px 24px;
           border-radius: var(--radius-md);
           font-family: var(--font-display);
-          font-weight: 600;
+          font-weight: 700;
+          transform: translateY(20px);
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          font-size: 0.9rem;
+        }
+
+        .portfolio-card:hover .view-btn {
+          transform: translateY(0);
         }
 
         .card-content {
-          padding: 24px;
+          padding: 32px;
+          padding-top: 0;
           display: flex;
           flex-direction: column;
           flex: 1;
@@ -217,29 +248,41 @@ export default function Portfolio({ showAll = false }) {
           display: inline-block;
           font-family: var(--font-mono);
           font-size: 0.7rem;
-          color: var(--mars);
+          color: var(--mars-glow);
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          margin-bottom: 0.75rem;
+          margin-bottom: 1rem;
+          background: rgba(232, 68, 26, 0.1);
+          padding: 4px 12px;
+          border-radius: var(--radius-full);
+          width: fit-content;
+          font-weight: 700;
         }
 
         .project-name {
-          font-size: 1.25rem;
-          margin-bottom: 0.5rem;
-          color: var(--star-white);
+          font-size: 1.5rem;
+          margin-bottom: 0.75rem;
+          color: white;
+          font-weight: 800;
+          letter-spacing: -0.01em;
         }
 
         .project-desc {
           font-family: var(--font-body);
-          font-weight: 300;
-          font-size: 0.9rem;
-          color: var(--star-dim);
-          line-height: 1.5;
+          font-weight: 400;
+          font-size: 1rem;
+          color: var(--text-muted);
+          line-height: 1.6;
         }
 
         @media (max-width: 1024px) {
-          .portfolio-grid { grid-template-columns: 1fr; }
-          .portfolio-card:nth-child(2) { margin-top: 0; }
+          .portfolio-grid { grid-template-columns: 1fr; gap: 32px; }
+        }
+
+        @media (max-width: 640px) {
+          .portfolio-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+          .card-content { padding: 24px; padding-top: 0; }
+          .project-name { font-size: 1.25rem; }
         }
       `}</style>
     </section>

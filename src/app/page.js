@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen'
 import StarField from '@/components/Atmosphere/StarField'
 import NebulaBlobs from '@/components/Atmosphere/NebulaBlobs'
@@ -16,6 +16,10 @@ import Footer from '@/components/Footer/Footer'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Force set loading to true initially and then handle complete
+  }, [])
 
   return (
     <>
